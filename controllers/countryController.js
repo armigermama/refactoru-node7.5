@@ -10,7 +10,17 @@ module.exports = {
 	},
 
 	search: function(req, res) {
-		console.log("search req.query", req.query);
-		res.send(req.query);
-	}
-}
+
+		var filterCountriesList = [];
+
+		var term = (req.query.term).toLowerCase();
+
+		var matchTerm = new RegExp(term, 'gi');
+
+		countries.filter(function(country) {
+			matchTerm.test(country.name) ? filterCountriesList.push(country) : false;
+		})
+
+		res.send(filterCountriesList);
+	} // end of search route
+};
