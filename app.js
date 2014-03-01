@@ -6,9 +6,12 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose');
 var CountryController = require('./controllers/countryController.js');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost/countries');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -24,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
+  app.get('/populate', CountryController.populateDB);
 }
 
 app.get('/', CountryController.index);

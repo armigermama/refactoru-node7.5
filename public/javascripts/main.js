@@ -34,7 +34,7 @@ $('#country').click(function(e){
 // Search button: filter country based on search text string
 $('#search').submit(function(e) {
 	e.preventDefault();
-
+	
 	var searchTxt = $(this).parent().find("#search-input").val();
 
 	$.get("/search", {term: searchTxt}, function(data) {

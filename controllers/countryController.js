@@ -1,4 +1,4 @@
-var countries = require('../models/countries.json');
+var CountryModel = require('../models/countriesModel.js');
 
 module.exports = {
 	index: function(req, res) {
@@ -17,10 +17,15 @@ module.exports = {
 
 		var matchTerm = new RegExp(term, 'gi');
 
-		countries.filter(function(country) {
+		CountryModel.filter(function(country) {
 			matchTerm.test(country.name) ? filterCountriesList.push(country) : false;
 		})
 
 		res.send(filterCountriesList);
-	} // end of search route
+	}, // end of search route
+
+	populateDB: function(req, res) {
+		CountryModel.callme();
+		res.send('DB populated');
+	}
 };
